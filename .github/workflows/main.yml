@@ -19,12 +19,15 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '*'
 
 # Description des jobs à exécuter
 jobs:
   # Jobs Server Tests-Unit
   Unit-tests-backend:
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
+    if: github.event_name == 'pull_request'
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./server # Dossier de travail par défaut
@@ -52,6 +55,7 @@ jobs:
 
   Unit-test-frontend:
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
+    if: github.event_name == 'pull_request'
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./client # Dossier de travail par défaut
@@ -73,6 +77,7 @@ jobs:
   Build-frontend:
     needs: Unit-test-frontend
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
+    if: contains(github.ref, 'refs/heads/main')
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./client # Dossier de travail par défaut
@@ -101,7 +106,7 @@ jobs:
       - Build-frontend # Dépend du job "Build-front"
     runs-on: ubuntu-latest
     # Ce jobs s'exécute que si c'est un push sur la branche main
-    if: contains(github.ref, 'refs/heads/main') && github.event_name == 'push'
+    if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
