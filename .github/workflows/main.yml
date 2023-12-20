@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: 'npm'
-          cache-dependency-path: ./server/package.lock.json
+          cache-dependency-path: ./server/package-lock.json
       - name: Install dependencies
         run: npm ci --cache .npm --prefer-offline
       - name: Code checking
