@@ -5,7 +5,7 @@ const userRouter = require('./user.api.js');
 const UserModel = require('../database/models/user.model');
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
-const { keyPub, key } = require('../env/keys');
+const { keyPub, key } = require('../keys');
 
 const app = express();
 app.use(express.json());
