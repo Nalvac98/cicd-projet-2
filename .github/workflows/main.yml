@@ -45,6 +45,11 @@ jobs:
       - name: Test running
         run: npm run test:ci # Exécute le script de test
 
+      - name: Upload coverage reports to Codecov # CodeDov Pour visualiser les parties du code non couverte par les tests
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   # Job pour le déploiement
   Deploy:
     needs: Unit-tests # Dépend du job "Unit-tests"
