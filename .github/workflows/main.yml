@@ -27,7 +27,6 @@ jobs:
   # Jobs Server Tests-Unit
   Unit-tests-backend:
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
-    if: github.event_name == 'pull_request'
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./server # Dossier de travail par défaut
@@ -55,7 +54,6 @@ jobs:
 
   Unit-test-frontend:
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
-    if: github.event_name == 'pull_request'
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./client # Dossier de travail par défaut
