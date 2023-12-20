@@ -1,0 +1,32 @@
+name: CI/CD
+
+on:
+  pull_resquest:
+    branches: '*'
+  push:
+    branches: main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defautls:
+      run:
+        working-directory: ./server
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install node JS
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: ./server/package.lock.json
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
+      - name: Code checking
+        run: npm run lint
+      - name: Checking vulnerability of dependencies
+        run: npm audit
+      - name: Test running
+        run: npm run test:ci
+
+
