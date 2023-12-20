@@ -75,7 +75,7 @@ jobs:
   Build-frontend:
     needs: Unit-test-frontend
     runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
-    if: contains(github.ref, 'refs/heads/main') && contains(github.ref, 'refs/tags/*')
+    if: startsWith(github.ref, 'refs/tags/')
     defaults: # Options par défaut pour les étapes
       run:
         working-directory: ./client # Dossier de travail par défaut
