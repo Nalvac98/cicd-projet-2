@@ -122,6 +122,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H $SERVER_IP  >> ~/.ssh/known_hosts 
           scp -r ./server $SERVER_USER@$SERVER_IP:/var/ww
-          scp -r ./dist $SERVER_USER@$SERVER_IP:/var/ww/dist
+          scp -r ./dist $SERVER_USER@$SERVER_IP:/var/ww
           ssh $SERVER_USER@$SERVER_IP "cd /var/ww/server && npm install --omit=dev"
           ssh $SERVER_USER@$SERVER_IP "cd /var/ww/server && pm2 startOrRestart ecosystem.config.js --env production && pm2 save"
