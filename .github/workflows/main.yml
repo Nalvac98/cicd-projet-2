@@ -3,8 +3,8 @@ name: CI/CD
 
 # Déclaration des variables d'environnement utilisées dans le workflow
 env:
-  SERVER_IP: "162.19.228.83"
-  SERVER_USER: root
+  SERVER_IP: '162.19.228.83'
+  SERVER_USER: 'root'
 
 # Paramètre pour gérer la concurrence des jobs
 concurrency:
@@ -37,7 +37,7 @@ jobs:
           cache: 'npm' # Met en cache les dépendances npm
           cache-dependency-path: ./server/package-lock.json # Chemin du fichier package-lock.json
       - name: Install dependencies # Installe les dépendances npm
-        run: npm ci --prefer-offline  # Installe les dépendances en mode "clean install"
+        run: npm ci # Installe les dépendances en mode "clean install"
       - name: Code checking
         run: npm run lint   # Exécute le script de lint
       - name: Checking vulnerability of dependencies
