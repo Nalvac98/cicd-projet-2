@@ -27,7 +27,7 @@ const { handleSubmit } = useForm({
 const submit = handleSubmit(async (formValue: UserForm) => {
   try {
     await createUser(formValue);
-    router.push('/connexion');
+    await router.push('/connexion');
   } catch (e) {
     console.log(e);
   }

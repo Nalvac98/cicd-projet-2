@@ -4,6 +4,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
   (e: 'logout'): void;
 }>();
 </script>

@@ -103,7 +103,7 @@ jobs:
       - Unit-tests-backend # Dépend du job "Unit-tests"
       - Build-frontend # Dépend du job "Build-front"
     runs-on: ubuntu-latest
-    # Ce jobs s'exécute que si c'est un push sur la branche main
+    # Ce jobs s'exécute que si c'est un push de tags sur la branche main
     if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout Code
