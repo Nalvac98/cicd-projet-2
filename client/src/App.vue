@@ -8,6 +8,7 @@ const router = useRouter();
 
 async function logout() {
   await userStore.logout();
+  console.log('bonojour');
   router.push('/connexion');
 }
 </script>
