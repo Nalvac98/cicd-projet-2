@@ -97,11 +97,47 @@ jobs:
           name: build   # Nom de l'artifact
           path: ./client/dist # Répertoire de sauvegade de l'artifact
 
+  test-e2e:
+    needs: Build-frontend
+    runs-on: ubuntu-latest # Exécute sur la dernière version d'Ubuntu
+    steps:
+      - name: Checkout Code  # Récupère le code source
+        uses: actions/checkout@v4 # Utilise l'action de checkout
+      - name: Install node JS  # Installe Node.js
+        uses: actions/setup-node@v3 # Utilise l'action setup-node
+        with: # Options supplémentaires
+          cache: 'npm' # Met en cache les dépendances npm
+          cache-dependency-path: "**/package-lock.json" # Chemin du fichier package-lock.json
+      - name: Install dependencies # Installe les dépendances npm
+        run: |        
+          cd server
+          npm ci # Installe les dépendances en mode "clean install"
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: ./client/dist
+      - name: start backend
+        run: |
+          cd server
+          npm start &
+      - name: Cypress ACTIONS
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./client
+          browser: chrome
+          start: npm run preview
+          wait-on: http://localhost:4173
+          wait-on-timeout: 60
+          config: baseUrl:http://localhost:4173
+
+
+
   # Job pour le déploiement
   Deploy:
     needs:
       - Unit-tests-backend # Dépend du job "Unit-tests"
-      - Build-frontend # Dépend du job "Build-front"
+      - test-e2e
     runs-on: ubuntu-latest
     # Ce jobs s'exécute que si c'est un push de tags sur la branche main
     if: startsWith(github.ref, 'refs/tags')
