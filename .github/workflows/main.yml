@@ -107,7 +107,7 @@ jobs:
       - name: télécharger l'artéfact du frontend
         uses: actions/download-artifact@v3
         with:
-          name: frontend-dist
+          name: build
           path: client/dist/
 
       - name: installer Node.js
